@@ -14,8 +14,8 @@ public class Main {
         LocalDateTime start = LocalDateTime.now();
 
         try {
-            TableReader.ReadTables("data\\tables.json.gz", 1);
-           // Map<String, List<WordInTable>> something = TableReader.ReadIndexing("IndexWords.json");
+            TableReader.ReadTables("data\\tables.json.gz", 100000, 1);
+           //Map<String, List<WordInTable>> something = TableReader.ReadIndexing("IndexWords.json");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

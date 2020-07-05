@@ -17,7 +17,7 @@ import java.util.zip.GZIPInputStream;
 
 public class TableReader {
 
-    public static void ReadTables(String tableFile,int batch_number) throws java.io.IOException, JSONException {
+    public static void ReadTables(String tableFile,int batch_size,int batch_number) throws java.io.IOException, JSONException {
         GZIPInputStream in = new GZIPInputStream(new FileInputStream(tableFile));
         Reader decoder = new InputStreamReader(in);
         BufferedReader br = new BufferedReader(decoder);
@@ -30,13 +30,12 @@ public class TableReader {
 
         while ((line = br.readLine()) != null) {
             try {
-                if (table_count > 50 * batch_number) {
+                if (table_count > batch_size * batch_number) {
                     break;
-                }else if (table_count < 50 * (batch_number - 1)) {
+                }else if (table_count < batch_size * (batch_number - 1)) {
                 } else {
                     JSONObject jsonData = new JSONObject(line);
                     Table t = new Table(jsonData);
-                  //  allText = t.textData + System.lineSeparator();
 
                     for (Word word : t.words) {
                         List<WordInTable> temp = wordsTable.get(word.stem) == null ?
@@ -55,7 +54,7 @@ public class TableReader {
 
                 table_count++;
 
-                if (table_count % 5000 == 0)
+                if (table_count % 50000 == 0)
                     System.out.println("worked on " + table_count + " tables - at: " + LocalDateTime.now().toLocalTime());
             }
             catch (Exception e)
@@ -68,7 +67,6 @@ public class TableReader {
         System.out.println("number of tables " + table_count);
         String json = new Gson().toJson(wordsTable);
         WriteToFile("IndexWords.json" , json);
-      //  WriteToFile("AllText.txt" , allText);
     }
 
     public static void WriteToFile(String fileName, String json){
