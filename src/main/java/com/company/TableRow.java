@@ -11,7 +11,7 @@ import java.util.List;
 public class TableRow {
     private int rowId;
     List<TableCell> tableRowCell = new ArrayList<TableCell>();
-    String textRow = " ";
+   // String textRow = " ";
     List<Word> words = new ArrayList<Word>();
 
     public TableRow() {
@@ -26,8 +26,6 @@ public class TableRow {
         }
         for (TableCell cell : tableRowCell) {
             List<String> tokens = Util.fullAnalyze(cell.text);
-//            List<String> fullWords = Util.standardAnalyze(cell.text);
-
 
             for (String token: tokens) {
                 words.add(new Word(token, cell.cellLocation));

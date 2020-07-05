@@ -22,7 +22,7 @@ public class Table {
     List<TableRow> tableData = new ArrayList<TableRow>();
     List<TableRow> tableHeaders = new ArrayList<TableRow>();
     int tableId;
-    String textData = " ";
+    //String textData = " ";
     List<Word> words = new ArrayList<Word>();
 
     public Table(JSONObject jsonTable) throws JSONException, IOException {
@@ -74,7 +74,7 @@ public class Table {
         }
 
         for(TableRow row : tableData) {
-            textData += row.textRow + " ";
+          //  textData += row.textRow + " ";
             words.addAll(row.words);
         }
     }
